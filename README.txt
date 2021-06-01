@@ -7,7 +7,7 @@ Alternatively, this location can be added to $PATH, eg:
 export PATH="/usr/local/opt/mongodb-community@4.4/bin":$PATH
 
 3. Add folder in the application for DB data, eg:
-mkdir "~/Downloads/richard-corke-application/db"
+mkdir -p "~/Downloads/richard-corke-application/db"
 
 4. Run command to start mongo database. Include path where the application has been downloaded, eg for ~/Downloads/richard-corke-application:
 ./mongod --dbpath "~/Downloads/richard-corke-application/db"
