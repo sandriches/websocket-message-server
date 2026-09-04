@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# local MongoDB data directory (see README)
+db/
+
+# environment
+.env
+.env.local
+
+# logs / tooling
+npm-debug.log*
+coverage/
+.nyc_output/
+
+# OS
+.DS_Store

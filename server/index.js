@@ -10,7 +10,8 @@ const io = require('socket.io')(server, {
 });
 const port = process.env.PORT || 8085;
 const MongoClient = require('mongodb').MongoClient
-const url = "mongodb://localhost:27017";
+const url = process.env.MONGO_URL || "mongodb://localhost:27017";
+const dbName = process.env.DB_NAME || "messagesDB";
 
 server.listen(port, () => {
 	console.log('Server listening at port %d', port);
@@ -26,7 +27,7 @@ io.on('connection', (socket) => {
 			if (err) {
 				return console.log(err);
 			}
-			var dbo = db.db('messagesDB');
+			var dbo = db.db(dbName);
 			dbo.collection('messages').insertOne(messageObject, function(err, res) {
 				if (err) {
 					console.log("Error inserting object into database");
@@ -49,7 +50,7 @@ app.get('/', function(req, res) {
 		if (err) {
 			return console.log(err);
 		}
-		var dbo = db.db('messagesDB');
+		var dbo = db.db(dbName);
 		const queryKey = req.query.key;
 		var query = { [queryKey]: {$exists: true} };
 		dbo.collection('messages').findOne(query, function(err, result) {

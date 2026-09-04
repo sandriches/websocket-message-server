@@ -15,16 +15,17 @@ mkdir -p "~/Downloads/richard-corke-application/db"
 5. Navigate to application
 
 6. Install dependencies:
-cd server
-npm install -y
-cd ..
-npm install -y
+npm install
 
+7. (Optional) Configure the server. Copy .env.example to .env and edit as needed:
+cp .env.example .env
+Supported variables: PORT (default 8085), MONGO_URL (default mongodb://localhost:27017), DB_NAME (default messagesDB).
+Requires Node 22.9 or newer.
 
-7. Start websocket server:
+8. Start websocket server:
 npm start
 
-8. Open index.html file in browser.
+9. Open app/index.html file in browser.
 
 
 The port is set to run on 8085.
