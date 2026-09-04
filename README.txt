@@ -29,9 +29,21 @@ npm start
 
 
 The port is set to run on 8085.
-The server will accept key/value pairs from the browser and store them in the database.
-An example request can be seen below:
+The server accepts key/value pairs from the browser over Socket.IO and stores them in the
+database as { key, value, createdAt, updatedAt }. Keys are unique: sending an existing key
+replaces its value. The socket event is 'new message' with arguments (key, value, ack), and
+the ack callback receives { ok: true, message } or { ok: false, error }.
+
+Stored messages can be fetched by key over HTTP:
 curl "http://localhost:8085?key=hello"
+
+Responses:
+200  { "key": "hello", "value": "world", "createdAt": "...", "updatedAt": "..." }
+400  { "error": "..." }   key missing or not alphanumeric
+404  { "error": "..." }   no message with that key
+500  { "error": "..." }   database error
+
+Keys and values must be alphanumeric (max 64 and 1024 characters respectively).
 
 
 

@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add message</title>
-    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
     <script defer src="app.js"></script>
 </head>
 <body>
-	<form>
+	<form id="message-form" autocomplete="off">
 		<label for="key">Key:</label>
-		<input type="text" id="key"> <br>
+		<input type="text" id="key" required> <br>
 		<label for="value">Value:</label>
-		<input type="text" id="value"> <br>
-		<input type="submit" id="submit" value="Submit">
+		<input type="text" id="value" required> <br>
+		<button type="submit" id="submit">Submit</button>
 	</form>
+	<p id="status" role="status" aria-live="polite"></p>
 </body>
 </html>
