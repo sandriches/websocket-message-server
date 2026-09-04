@@ -27,13 +27,25 @@ function createRepository(messages) {
 			const doc = await messages.findOneAndUpdate(
 				{ key },
 				{ $set: { value, updatedAt: now }, $setOnInsert: { createdAt: now } },
-				{ upsert: true, returnDocument: 'after' }
+				{ upsert: true, returnDocument: 'after' },
 			);
 			return toPublic(doc);
 		},
 
 		async findByKey(key) {
 			return toPublic(await messages.findOne({ key }));
+		},
+
+		// Newest first.
+		async list() {
+			const docs = await messages.find({}).sort({ updatedAt: -1 }).toArray();
+			return docs.map(toPublic);
+		},
+
+		// Resolves true if a message was removed, false if the key did not exist.
+		async remove(key) {
+			const { deletedCount } = await messages.deleteOne({ key });
+			return deletedCount === 1;
 		},
 	};
 }

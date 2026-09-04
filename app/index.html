@@ -1,20 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add message</title>
-    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
-    <script defer src="app.js"></script>
-</head>
-<body>
-	<form id="message-form" autocomplete="off">
-		<label for="key">Key:</label>
-		<input type="text" id="key" required> <br>
-		<label for="value">Value:</label>
-		<input type="text" id="value" required> <br>
-		<button type="submit" id="submit">Submit</button>
-	</form>
-	<p id="status" role="status" aria-live="polite"></p>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Messages</title>
+		<link rel="stylesheet" href="style.css" />
+		<script src="/socket.io/socket.io.js"></script>
+		<script defer src="app.js"></script>
+	</head>
+	<body>
+		<main>
+			<h1>Messages</h1>
+
+			<form id="message-form" autocomplete="off">
+				<label>
+					Key
+					<input
+						type="text"
+						id="key"
+						required
+						maxlength="64"
+						pattern="[0-9a-zA-Z]+"
+						placeholder="letters and digits"
+					/>
+				</label>
+				<label>
+					Value
+					<input
+						type="text"
+						id="value"
+						required
+						maxlength="1024"
+						pattern="[0-9a-zA-Z]+"
+						placeholder="letters and digits"
+					/>
+				</label>
+				<button type="submit" id="submit">Save</button>
+			</form>
+
+			<p id="status" role="status" aria-live="polite"></p>
+
+			<section>
+				<h2>Stored messages</h2>
+				<p id="empty" hidden>No messages yet.</p>
+				<table id="messages-table" hidden>
+					<thead>
+						<tr>
+							<th>Key</th>
+							<th>Value</th>
+							<th>Updated</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody id="messages"></tbody>
+				</table>
+			</section>
+		</main>
+	</body>
 </html>
